@@ -1,0 +1,1002 @@
+<!doctype html>
+<html lang="en" class="scroll-smooth">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hoang Vu - portfolio</title>
+
+    <link rel="icon" type="image/png" href="./public/assets/img/avatar.png" />
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            fontFamily: {
+              sans: ["Inter", "sans-serif"],
+              mono: ["Fira Code", "monospace"],
+            },
+            colors: {
+              primary: {
+                50: "#eef2ff",
+                100: "#e0e7ff",
+                200: "#c7d2fe",
+                300: "#a5b4fc",
+                400: "#818cf8",
+                500: "#6366f1",
+                600: "#4f46e5",
+                700: "#4338ca",
+                800: "#3730a3",
+                900: "#312e81",
+              },
+            },
+          },
+        },
+      };
+    </script>
+
+    <!-- Google Fonts -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Devicon -->
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+    />
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <style>
+      body {
+        -webkit-tap-highlight-color: transparent;
+      }
+
+      /* Smooth Scroll Reveal */
+      .reveal {
+        opacity: 0;
+        transform: translateY(30px);
+        transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+      .reveal.active {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .reveal-delay-1 {
+        transition-delay: 100ms;
+      }
+      .reveal-delay-2 {
+        transition-delay: 200ms;
+      }
+
+      /* Custom Scrollbar */
+      ::-webkit-scrollbar {
+        width: 8px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background-color: #cbd5e1;
+        border-radius: 8px;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background-color: #334155;
+      }
+      ::-webkit-scrollbar-thumb:hover {
+        background-color: #94a3b8;
+      }
+
+      /* Clean Dot Pattern Background */
+      .bg-dot-pattern {
+        background-image: radial-gradient(
+          rgba(99, 102, 241, 0.1) 1px,
+          transparent 1px
+        );
+        background-size: 24px 24px;
+      }
+      .dark .bg-dot-pattern {
+        background-image: radial-gradient(
+          rgba(255, 255, 255, 0.05) 1px,
+          transparent 1px
+        );
+      }
+
+      /* Typewriter cursor */
+      .cursor-blink {
+        animation: blink 1s step-end infinite;
+      }
+      @keyframes blink {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0;
+        }
+      }
+
+      /* Image decorative offset */
+      .image-offset-bg {
+        position: relative;
+      }
+      .image-offset-bg::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        transform: translate(1rem, 1rem);
+        background-color: #e0e7ff;
+        border-radius: 1.5rem;
+        z-index: -1;
+        transition: transform 0.3s ease;
+      }
+      .dark .image-offset-bg::after {
+        background-color: #312e81;
+      }
+      .image-offset-bg:hover::after {
+        transform: translate(0.5rem, 0.5rem);
+      }
+    </style>
+  </head>
+  <body
+    class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300 font-sans antialiased selection:bg-primary-500/30 selection:text-primary-700 dark:selection:text-primary-200"
+  >
+    <!-- Background Decoration (Clean Dots) -->
+    <div class="fixed inset-0 z-0 pointer-events-none bg-dot-pattern"></div>
+
+    <!-- NAVBAR -->
+    <nav
+      id="navbar"
+      class="fixed top-0 w-full z-50 transition-all duration-300 py-4 border-b border-transparent bg-slate-50/80 dark:bg-slate-950/80 backdrop-blur-md"
+    >
+      <div
+        class="container mx-auto px-6 md:px-12 flex justify-between items-center"
+      >
+        <a
+          href="#home"
+          class="text-xl font-bold tracking-tight flex items-center gap-2 group"
+        >
+          <div
+            class="w-8 h-8 rounded-white flex items-center justify-center font-mono text-sm shadow-md"
+          >
+            HV
+          </div>
+          <span
+            class="text-slate-900 dark:text-white group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors"
+            >Vu.dev</span
+          >
+        </a>
+
+        <!-- Desktop Menu -->
+        <div class="hidden md:flex space-x-6 items-center">
+          <a
+            href="#about"
+            class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            >About</a
+          >
+          <a
+            href="#education"
+            class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            >Education</a
+          >
+          <a
+            href="#skills"
+            class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            >Skills</a
+          >
+          <a
+            href="#projects"
+            class="text-sm font-medium text-slate-600 dark:text-slate-400 hover:text-primary-600 dark:hover:text-primary-400 transition-colors"
+            >Projects</a
+          >
+        </div>
+
+        <div class="hidden md:flex items-center space-x-4">
+          <div class="h-6 w-px bg-slate-200 dark:bg-slate-800"></div>
+          <!-- Theme Toggle -->
+          <button
+            id="theme-toggle"
+            class="p-2 rounded-lg text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 transition-colors"
+          >
+            <i
+              data-lucide="sun"
+              class="w-5 h-5 hidden dark:block text-amber-400"
+            ></i>
+            <i
+              data-lucide="moon"
+              class="w-5 h-5 block dark:hidden text-slate-600"
+            ></i>
+          </button>
+        </div>
+
+        <!-- Mobile Menu Toggle -->
+        <button
+          id="mobile-menu-btn"
+          class="md:hidden p-2 text-slate-600 dark:text-slate-300"
+        >
+          <i data-lucide="menu" class="w-6 h-6"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Dropdown -->
+      <div
+        id="mobile-menu"
+        class="hidden absolute top-full left-0 w-full bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 shadow-lg py-4 px-6 flex-col space-y-4 transition-all z-50"
+      >
+        <a
+          href="#about"
+          class="text-base font-medium text-slate-700 dark:text-slate-200 hover:text-primary-600"
+          >About</a
+        >
+        <a
+          href="#education"
+          class="text-base font-medium text-slate-700 dark:text-slate-200 hover:text-primary-600"
+          >Education</a
+        >
+        <a
+          href="#skills"
+          class="text-base font-medium text-slate-700 dark:text-slate-200 hover:text-primary-600"
+          >Skills</a
+        >
+        <a
+          href="#projects"
+          class="text-base font-medium text-slate-700 dark:text-slate-200 hover:text-primary-600"
+          >Projects</a
+        >
+        <div class="h-px w-full bg-slate-200 dark:bg-slate-800"></div>
+        <div class="flex items-center justify-between">
+          <span class="text-sm font-medium text-slate-500">Theme</span>
+          <button
+            id="theme-toggle-mobile"
+            class="p-2 rounded-lg bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300"
+          >
+            <i data-lucide="sun" class="w-5 h-5 hidden dark:block"></i>
+            <i data-lucide="moon" class="w-5 h-5 block dark:hidden"></i>
+          </button>
+        </div>
+      </div>
+    </nav>
+
+    <!-- HERO SECTION (Split Layout) -->
+    <section
+      id="home"
+      class="relative z-10 min-h-screen flex items-center pt-20"
+    >
+      <div class="container mx-auto px-6 md:px-12">
+        <div
+          class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center reveal"
+        >
+          <!-- Text Content (Left) -->
+          <div class="lg:col-span-7 text-left order-2 lg:order-1">
+            <div
+              class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-primary-50 dark:bg-primary-900/20 text-primary-700 dark:text-primary-300 text-sm font-medium mb-6 border border-primary-100 dark:border-primary-800"
+            >
+              <span class="relative flex h-2 w-2">
+                <span
+                  class="animate-ping absolute inline-flex h-full w-full rounded-full bg-primary-400 opacity-75"
+                ></span>
+                <span
+                  class="relative inline-flex rounded-full h-2 w-2 bg-primary-500"
+                ></span>
+              </span>
+              Available for software engineering roles
+            </div>
+
+            <h1
+              class="text-5xl lg:text-7xl font-bold tracking-tight mb-4 text-slate-900 dark:text-white"
+            >
+              Hi, I'm
+              <span class="text-primary-800 dark:text-primary-500"
+                >Hoang Vu</span
+              >.
+            </h1>
+
+            <h2
+              class="text-2xl lg:text-3xl font-semibold text-slate-600 dark:text-slate-400 mb-6 h-10 flex items-center"
+            >
+              I am a
+              <span
+                id="typewriter"
+                class="ml-2 text-slate-800 dark:text-slate-200"
+              ></span
+              ><span class="cursor-blink font-light text-primary-500">|</span>
+            </h2>
+
+            <p
+              class="text-lg text-slate-600 dark:text-slate-400 mb-10 max-w-xl leading-relaxed"
+            >
+              A dedicated 3rd-year Computer Science student at
+              <strong class="text-slate-900 dark:text-white font-medium"
+                >Saigon University</strong
+              >. I specialize in building robust, scalable web applications and
+              currently focusing on the React/Next.js and NestJS ecosystem.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a
+                href="#projects"
+                class="px-6 py-3 rounded-lg bg-slate-900 hover:bg-slate-800 dark:bg-primary-600 dark:hover:bg-primary-700 text-white font-medium transition-colors flex items-center justify-center gap-2 shadow-sm"
+              >
+                View Projects <i data-lucide="arrow-right" class="w-4 h-4"></i>
+              </a>
+              <a
+                href="./public/portfolio.pdf"
+                class="px-6 py-3 rounded-lg border border-slate-300 dark:border-slate-700 hover:border-slate-400 dark:hover:border-slate-500 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-medium transition-colors flex items-center justify-center gap-2"
+              >
+                <i data-lucide="mail" class="w-4 h-4"></i> Resume
+              </a>
+            </div>
+          </div>
+
+          <!-- Image/Avatar (Right) -->
+          <div
+            class="lg:col-span-5 flex justify-center lg:justify-end order-1 lg:order-2 mb-10 lg:mb-0"
+          >
+            <div
+              class="image-offset-bg relative w-64 h-64 sm:w-80 sm:h-80 md:w-96 md:h-96"
+            >
+              <div
+                class="absolute inset-0 bg-slate-200 dark:bg-slate-800 rounded-3xl overflow-hidden border border-slate-300 dark:border-slate-700 shadow-xl flex items-center justify-center"
+              >
+                <!-- Placeholder avatar - replace with real professional photo -->
+                <img
+                  src="./public/assets/img/avatar.png"
+                  alt="Hoang Vu"
+                  class="w-full h-full object-cover scale-110"
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Scroll indicator -->
+      <div
+        class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce hidden md:block"
+      >
+        <a
+          href="#about"
+          class="text-slate-400 hover:text-primary-600 transition-colors"
+        >
+          <i data-lucide="arrow-down" class="w-5 h-5"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- ABOUT SECTION -->
+    <section
+      id="about"
+      class="relative z-10 py-24 bg-white dark:bg-slate-900/50"
+    >
+      <div class="container mx-auto px-6 md:px-12 max-w-5xl reveal">
+        <div class="flex items-center gap-4 mb-12">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white">
+            01. About Me
+          </h2>
+          <div class="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
+        </div>
+
+        <div
+          class="grid grid-cols-1 md:grid-cols-2 gap-12 text-slate-600 dark:text-slate-400 text-lg leading-relaxed"
+        >
+          <div class="space-y-6">
+            <p>
+              Hello! My name is
+              <strong class="text-slate-900 dark:text-white font-medium"
+                >Hoang Vu</strong
+              >. My interest in software development started back when I was
+              exploring how things work on the internet. Fast forward to today,
+              and I've had the privilege of deeply studying computer science
+              fundamentals.
+            </p>
+            <p>
+              As a <strong>3rd-year student</strong>, my main focus these days
+              is building accessible, inclusive products and digital
+              experiences. I enjoy bridging the gap between engineering and
+              design—combining my technical knowledge to create applications
+              that are not only performant but also user-friendly.
+            </p>
+          </div>
+          <div class="space-y-6">
+            <p>
+              I continuously push myself to learn new technologies. Recently,
+              I've been diving deep into backend architecture using
+              <span class="text-primary-600 dark:text-primary-400 font-medium"
+                >NestJS</span
+              >
+              and understanding relational database design with
+              <span class="text-primary-600 dark:text-primary-400 font-medium"
+                >PostgreSQL</span
+              >.
+            </p>
+            <p>
+              When I'm not at the computer writing code or studying, I enjoy
+              collaborating with my peers, reading tech blogs, and preparing
+              myself for professional opportunities in the software engineering
+              field.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- SKILLS SECTION (Clean Card Grid) -->
+    <section id="skills" class="relative z-10 py-24">
+      <div class="container mx-auto px-6 md:px-12 max-w-5xl reveal">
+        <div class="flex items-center gap-4 mb-16 flex-wrap">
+          <div
+            class="hidden md:block h-px bg-slate-200 dark:bg-slate-800 flex-grow mr-4"
+          ></div>
+          <span
+            class="text-primary-500 font-mono text-xl font-bold bg-primary-100 dark:bg-primary-900/30 w-10 h-10 flex items-center justify-center rounded-lg"
+            >03</span
+          >
+          <h2
+            class="text-3xl md:text-4xl font-bold text-slate-900 dark:text-white tracking-tight whitespace-nowrap"
+          >
+            Skills & Expertise
+          </h2>
+          <div class="h-px bg-slate-200 dark:bg-slate-800 flex-grow ml-4"></div>
+        </div>
+
+        <div class="space-y-12">
+          <!-- Frontend -->
+          <div>
+            <h3
+              class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3"
+            >
+              <i data-lucide="layout" class="text-blue-500 w-6 h-6"></i>
+              Frontend Development
+            </h3>
+            <div
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+            >
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-blue-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-react-original colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >React</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-slate-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-nextjs-original dark:invert text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Next.js</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-green-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-vuejs-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Vue.js</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-cyan-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-tailwindcss-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Tailwind</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-yellow-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-javascript-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >JavaScript</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Backend & DB -->
+          <div class="reveal reveal-delay-1">
+            <h3
+              class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3"
+            >
+              <i data-lucide="server" class="text-emerald-500 w-6 h-6"></i>
+              Backend & Database
+            </h3>
+            <div
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+            >
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-green-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-nodejs-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Node.js</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-slate-400/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-express-original dark:invert text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Express</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-blue-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-python-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Python</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-indigo-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-postgresql-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >PostgreSQL</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-green-600/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-mongodb-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >MongoDB</span
+                >
+              </div>
+            </div>
+          </div>
+
+          <!-- Tools & Others -->
+          <div class="reveal reveal-delay-2">
+            <h3
+              class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-3"
+            >
+              <i data-lucide="blocks" class="text-purple-500 w-6 h-6"></i> Tools
+              & Others
+            </h3>
+            <div
+              class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4"
+            >
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-orange-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-git-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Git</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-blue-400/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-react-original colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >React Native</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-blue-600/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-docker-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Docker</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-pink-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-figma-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Figma</span
+                >
+              </div>
+              <div
+                class="flex items-center gap-3 p-4 bg-white dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700/50 hover:border-yellow-500/50 hover:shadow-md transition-all group"
+              >
+                <i
+                  class="devicon-firebase-plain colored text-2xl group-hover:scale-110 transition-transform duration-300"
+                ></i>
+                <span
+                  class="font-medium text-slate-700 dark:text-slate-200 text-sm"
+                  >Firebase</span
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PROJECTS SECTION (Z-Pattern Layout) -->
+    <section
+      id="projects"
+      class="relative z-10 py-24 bg-white dark:bg-slate-900/50"
+    >
+      <div class="container mx-auto px-6 md:px-12 max-w-5xl reveal">
+        <div class="flex items-center gap-4 mb-20">
+          <h2 class="text-3xl font-bold text-slate-900 dark:text-white">
+            03. Selected Works
+          </h2>
+          <div class="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
+        </div>
+
+        <div class="space-y-24 md:space-y-32">
+          <!-- Project 1: Fast Food POS (Image Left) -->
+          <div
+            class="flex flex-col md:flex-row items-center gap-8 md:gap-12 group"
+          >
+            <!-- Image Box -->
+            <div class="w-full md:w-1/2 relative">
+              <div
+                class="aspect-video bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-center group-hover:shadow-lg transition-all"
+              >
+                <img src="./public/assets/img/1.png" alt="POS img" />
+              </div>
+            </div>
+
+            <!-- Content Box -->
+            <div class="w-full md:w-1/2 flex flex-col justify-center text-left">
+              <p
+                class="text-primary-600 dark:text-primary-400 font-mono text-sm mb-2"
+              >
+                Featured Project
+              </p>
+              <h3
+                class="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
+                Fast Food POS System
+              </h3>
+
+              <div
+                class="bg-slate-50 dark:bg-slate-900 p-6 rounded-xl border border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6 shadow-sm"
+              >
+                A comprehensive Point of Sale system tailored for fast-food
+                restaurants. Features real-time kitchen order processing,
+                inventory tracking, staff role management, and detailed sales
+                analytics.
+              </div>
+
+              <ul
+                class="flex flex-wrap gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 mb-6"
+              >
+                <li>React.js</li>
+                <li>NestJS</li>
+                <li>PostgreSQL</li>
+                <li>Socket.io</li>
+              </ul>
+
+              <div class="flex gap-4">
+                <a
+                  href="https://github.com/Vunas/CNPM"
+                  class="text-slate-500 hover:text-primary-600 transition-colors"
+                  title="GitHub"
+                  ><i data-lucide="github" class="w-5 h-5"></i
+                ></a>
+                <a
+                  href="https://cnpm-rose.vercel.app/qrcodepage"
+                  class="text-slate-500 hover:text-primary-600 transition-colors"
+                  title="Live Demo"
+                  ><i data-lucide="external-link" class="w-5 h-5"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+
+          <!-- Project 2: TechStore (Image Right) -->
+          <div
+            class="flex flex-col md:flex-row-reverse items-center gap-8 md:gap-12 group reveal"
+          >
+            <!-- Image Box -->
+            <div class="w-full md:w-1/2 relative">
+              <div
+                class="aspect-video bg-slate-100 dark:bg-slate-800 rounded-xl overflow-hidden border border-slate-200 dark:border-slate-700 shadow-sm flex items-center justify-center group-hover:shadow-lg transition-all"
+              >
+                <img src="./public/assets/img/2.png" alt="E-Commerce img" />
+              </div>
+            </div>
+
+            <!-- Content Box -->
+            <div
+              class="w-full md:w-1/2 flex flex-col justify-center text-left md:text-right"
+            >
+              <p
+                class="text-primary-600 dark:text-primary-400 font-mono text-sm mb-2"
+              >
+                Featured Project
+              </p>
+              <h3
+                class="text-2xl font-bold text-slate-900 dark:text-white mb-4"
+              >
+                TechZone E-Commerce
+              </h3>
+
+              <div
+                class="bg-slate-50 dark:bg-slate-900 p-6 rounded-xl border border-slate-100 dark:border-slate-800 text-slate-600 dark:text-slate-300 text-base leading-relaxed mb-6 shadow-sm"
+              >
+                A full-stack e-commerce platform dedicated to electronic devices
+                (concept similar to The Gioi Di Dong). Includes advanced product
+                filtering, secure cart management, user authentication, and a
+                robust admin dashboard.
+              </div>
+
+              <ul
+                class="flex flex-wrap md:justify-end gap-3 font-mono text-xs text-slate-500 dark:text-slate-400 mb-6"
+              >
+                <li>Next.js</li>
+                <li>TypeScript</li>
+                <li>PostgreSQL</li>
+                <li>Prisma</li>
+              </ul>
+
+              <div class="flex md:justify-end gap-4">
+                <a
+                  href="https://github.com/vinh047/eCommerce-Mobile"
+                  class="text-slate-500 hover:text-primary-600 transition-colors"
+                  title="GitHub"
+                  ><i data-lucide="github" class="w-5 h-5"></i
+                ></a>
+                <a
+                  href="https://e-commerce-mobile-sgu.vercel.app/"
+                  class="text-slate-500 hover:text-primary-600 transition-colors"
+                  title="Live Demo"
+                  ><i data-lucide="external-link" class="w-5 h-5"></i
+                ></a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CONTACT SECTION -->
+    <section id="contact" class="relative z-10 py-24">
+      <div class="container mx-auto px-6 md:px-12 max-w-2xl text-center reveal">
+        <p
+          class="text-primary-600 dark:text-primary-400 font-mono mb-4 text-sm font-semibold uppercase tracking-widest"
+        >
+          04. What's Next?
+        </p>
+        <h2
+          class="text-4xl md:text-5xl font-bold text-slate-900 dark:text-white mb-6"
+        >
+          Get In Touch
+        </h2>
+        <p
+          class="text-slate-600 dark:text-slate-400 text-lg mb-10 leading-relaxed"
+        >
+          Although I'm currently focused on my studies, my inbox is always open.
+          Whether you have a question, an internship opportunity, or just want
+          to say hi, I'll try my best to get back to you!
+        </p>
+        <a
+          href="mailto:vuh265@gmail.com"
+          class="inline-flex items-center gap-2 px-8 py-4 rounded-lg bg-slate-900 dark:bg-primary-600 hover:bg-slate-800 dark:hover:bg-primary-700 text-white font-medium transition-colors"
+        >
+          Say Hello
+        </a>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer
+      class="relative z-10 py-8 border-t border-slate-200 dark:border-slate-800 text-center bg-white dark:bg-slate-950"
+    >
+      <div class="container mx-auto px-6 flex flex-col items-center">
+        <div class="flex gap-6 mb-4">
+          <a
+            href="https://github.com/vunas"
+            class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            <i data-lucide="github" class="w-5 h-5"></i>
+          </a>
+          <a
+            href="#"
+            class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            <i data-lucide="linkedin" class="w-5 h-5"></i>
+          </a>
+          <a
+            href="#"
+            class="text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors"
+          >
+            <i data-lucide="twitter" class="w-5 h-5"></i>
+          </a>
+        </div>
+        <p class="text-slate-500 font-mono text-sm">
+          Built by Hoang Vu © <span id="year"></span>
+        </p>
+      </div>
+    </footer>
+
+    <!-- SCRIPTS -->
+    <script>
+      // Init Lucide Icons
+      lucide.createIcons();
+
+      // Auto update year
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // --- THEME TOGGLE (Light/Dark Mode) ---
+      const themeToggleBtns = [
+        document.getElementById("theme-toggle"),
+        document.getElementById("theme-toggle-mobile"),
+      ];
+      const htmlElement = document.documentElement;
+
+      function applyTheme(isDark) {
+        if (isDark) {
+          htmlElement.classList.add("dark");
+          localStorage.theme = "dark";
+        } else {
+          htmlElement.classList.remove("dark");
+          localStorage.theme = "light";
+        }
+      }
+
+      // Check priority
+      if (
+        localStorage.theme === "dark" ||
+        (!("theme" in localStorage) &&
+          window.matchMedia("(prefers-color-scheme: dark)").matches)
+      ) {
+        applyTheme(true);
+      } else {
+        applyTheme(false);
+      }
+
+      themeToggleBtns.forEach((btn) => {
+        if (btn) {
+          btn.addEventListener("click", () => {
+            applyTheme(!htmlElement.classList.contains("dark"));
+          });
+        }
+      });
+
+      // --- MOBILE MENU TOGGLE ---
+      const mobileMenuBtn = document.getElementById("mobile-menu-btn");
+      const mobileMenu = document.getElementById("mobile-menu");
+      const mobileLinks = mobileMenu.querySelectorAll("a");
+
+      mobileMenuBtn.addEventListener("click", () => {
+        mobileMenu.classList.toggle("hidden");
+        mobileMenu.classList.toggle("flex");
+      });
+
+      mobileLinks.forEach((link) => {
+        link.addEventListener("click", () => {
+          mobileMenu.classList.add("hidden");
+          mobileMenu.classList.remove("flex");
+        });
+      });
+
+      // --- SCROLL REVEAL ---
+      function reveal() {
+        var reveals = document.querySelectorAll(".reveal");
+        for (var i = 0; i < reveals.length; i++) {
+          var windowHeight = window.innerHeight;
+          var elementTop = reveals[i].getBoundingClientRect().top;
+          var elementVisible = 100;
+          if (elementTop < windowHeight - elementVisible) {
+            reveals[i].classList.add("active");
+          }
+        }
+      }
+      window.addEventListener("scroll", reveal);
+      reveal(); // Trigger on load
+
+      // --- NAVBAR STICKY EFFECT ---
+      const navbar = document.getElementById("navbar");
+      window.addEventListener("scroll", () => {
+        if (window.scrollY > 10) {
+          navbar.classList.add("shadow-sm");
+          navbar.classList.remove("py-4", "border-transparent");
+          navbar.classList.add(
+            "py-3",
+            "border-slate-200",
+            "dark:border-slate-800",
+          );
+        } else {
+          navbar.classList.remove(
+            "shadow-sm",
+            "py-3",
+            "border-slate-200",
+            "dark:border-slate-800",
+          );
+          navbar.classList.add("py-4", "border-transparent");
+        }
+      });
+
+      // --- TYPING EFFECT ---
+      const phrases = [
+        "Software Engineer.",
+        "Fullstack Developer.",
+        "CS Student.",
+      ];
+      let loopNum = 0;
+      let isDeleting = false;
+      let text = "";
+      let typingSpeed = 100;
+
+      function type() {
+        const i = loopNum % phrases.length;
+        const fullText = phrases[i];
+
+        if (isDeleting) {
+          text = fullText.substring(0, text.length - 1);
+          typingSpeed = 50;
+        } else {
+          text = fullText.substring(0, text.length + 1);
+          typingSpeed = 120;
+        }
+
+        const typewriterElement = document.getElementById("typewriter");
+        if (typewriterElement) {
+          typewriterElement.textContent = text;
+        }
+
+        let delta = typingSpeed;
+
+        if (!isDeleting && text === fullText) {
+          delta = 2000;
+          isDeleting = true;
+        } else if (isDeleting && text === "") {
+          isDeleting = false;
+          loopNum++;
+          delta = 500;
+        }
+
+        setTimeout(type, delta);
+      }
+      setTimeout(type, 1000);
+    </script>
+  </body>
+</html>
