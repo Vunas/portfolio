@@ -1,0 +1,88 @@
+body {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* --- Smooth Scroll Reveal --- */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.reveal.active {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 {
+  transition-delay: 100ms;
+}
+.reveal-delay-2 {
+  transition-delay: 200ms;
+}
+
+/* --- Custom Scrollbar --- */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background-color: #cbd5e1;
+  border-radius: 8px;
+}
+.dark ::-webkit-scrollbar-thumb {
+  background-color: #334155;
+}
+::-webkit-scrollbar-thumb:hover {
+  background-color: #94a3b8;
+}
+
+/* --- Clean Dot Pattern Background --- */
+.bg-dot-pattern {
+  background-image: radial-gradient(
+    rgba(99, 102, 241, 0.1) 1px,
+    transparent 1px
+  );
+  background-size: 24px 24px;
+}
+.dark .bg-dot-pattern {
+  background-image: radial-gradient(
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px
+  );
+}
+
+/* --- Typewriter cursor --- */
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+
+/* --- Image decorative offset --- */
+.image-offset-bg {
+  position: relative;
+}
+.image-offset-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  transform: translate(1rem, 1rem);
+  background-color: #e0e7ff;
+  border-radius: 1.5rem;
+  z-index: -1;
+  transition: transform 0.3s ease;
+}
+.dark .image-offset-bg::after {
+  background-color: #312e81;
+}
+.image-offset-bg:hover::after {
+  transform: translate(0.5rem, 0.5rem);
+}

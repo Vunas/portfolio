@@ -1,0 +1,80 @@
+<footer
+  class="relative z-10 py-10 border-t border-slate-100 dark:border-slate-800/50 bg-white dark:bg-slate-950 mt-auto"
+>
+  <div class="container mx-auto px-6 flex flex-col items-center">
+    <!-- Contact Links -->
+    <div
+      class="flex flex-wrap items-center justify-center gap-6 sm:gap-10 mb-8"
+    >
+      <!-- GitHub -->
+      <a
+        href="https://github.com/vunas"
+        target="_blank"
+        class="group flex items-center gap-2.5 text-slate-400 hover:text-slate-900 dark:hover:text-white transition-all hover:-translate-y-1"
+        aria-label="GitHub"
+      >
+        <i class="fa-brands fa-github w-5 h-5"></i>
+        <span
+          class="text-sm font-medium hidden sm:inline-block group-hover:underline decoration-slate-300 dark:decoration-slate-600 underline-offset-4"
+          >vunas</span
+        >
+      </a>
+
+      <!-- LinkedIn -->
+      <a
+        href="https://linkedin.com/in/vun-dev"
+        target="_blank"
+        class="group flex items-center gap-2.5 text-slate-400 hover:text-[#0A66C2] dark:hover:text-[#4facfe] transition-all hover:-translate-y-1"
+        aria-label="LinkedIn"
+      >
+        <i class="fa-brands fa-linkedin w-5 h-5"></i>
+        <span
+          class="text-sm font-medium hidden sm:inline-block group-hover:underline decoration-[#0A66C2]/30 dark:decoration-[#4facfe]/30 underline-offset-4"
+          >vun-dev</span
+        >
+      </a>
+
+      <!-- Email -->
+      <a
+        href="vuh265@gmail.com"
+        class="group flex items-center gap-2.5 text-slate-400 hover:text-primary-500 dark:hover:text-primary-400 transition-all hover:-translate-y-1"
+      >
+        <i data-lucide="mail" class="w-5 h-5"></i>
+        <span
+          class="text-sm font-medium hidden sm:inline-block group-hover:underline decoration-primary-500/30 underline-offset-4"
+          >vuh265@gmail.com</span
+        >
+      </a>
+
+      <!-- Phone -->
+      <a
+        href="tel:+84974454307"
+        class="group flex items-center gap-2.5 text-slate-400 hover:text-emerald-500 dark:hover:text-emerald-400 transition-all hover:-translate-y-1"
+      >
+        <i data-lucide="phone" class="w-5 h-5"></i>
+        <span
+          class="text-sm font-medium hidden sm:inline-block group-hover:underline decoration-emerald-500/30 underline-offset-4"
+          >0974.454.307</span
+        >
+      </a>
+    </div>
+
+    <!-- Divider -->
+    <div
+      class="w-12 h-px bg-slate-200 dark:bg-slate-800 mb-8 rounded-full"
+    ></div>
+
+    <!-- Copyright -->
+    <p
+      class="text-slate-400 dark:text-slate-500 font-mono text-xs sm:text-sm tracking-wide"
+    >
+      Built by Hoang Vu &copy; <span id="year"></span>
+    </p>
+  </div>
+
+  <script>
+    // Auto-update year
+    const yearEl = document.getElementById("year");
+    if (yearEl) yearEl.textContent = new Date().getFullYear();
+  </script>
+</footer>

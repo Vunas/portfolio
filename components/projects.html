@@ -1,0 +1,73 @@
+<section
+  id="projects"
+  class="relative z-10 py-24 bg-slate-50 dark:bg-slate-900/50"
+>
+  <div class="container mx-auto px-6 md:px-12 max-w-6xl reveal">
+    <!-- Tiêu đề -->
+    <div class="flex items-center gap-4 mb-12">
+      <h2 class="text-3xl font-bold text-slate-900 dark:text-white">
+        03. My Projects
+      </h2>
+      <div class="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
+    </div>
+
+    <!-- Thanh công cụ: Search & Filter -->
+    <div
+      class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-2"
+    >
+      <!-- Nút Filter (Render bằng JS) -->
+      <div id="filter-container" class="flex flex-wrap gap-2">
+      </div>
+
+      <!-- Ô Search -->
+      <div class="relative w-full md:w-72">
+        <div
+          class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+        >
+          <i data-lucide="search" class="w-5 h-5 text-slate-400"></i>
+        </div>
+        <input
+          type="text"
+          id="search-input"
+          class="block w-full pl-10 pr-3 py-2 border border-slate-200 dark:border-slate-700 rounded-lg leading-5 bg-white dark:bg-slate-800 text-slate-900 dark:text-slate-100 placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:border-primary-500 transition-all sm:text-sm"
+          placeholder="Search projects..."
+        />
+      </div>
+    </div>
+
+    <!-- Container chứa LƯỚI các dự án (Grid) -->
+    <div
+      id="projects-grid"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+    >
+      <!-- JS sẽ render các thẻ card dự án vào đây -->
+      <div class="col-span-full text-center text-slate-500 animate-pulse py-10">
+        Loading projects...
+      </div>
+    </div>
+
+    <!-- Nút Load More -->
+    <div id="load-more-container" class="mt-16 text-center hidden">
+      <button
+        id="load-more-btn"
+        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-300 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-medium transition-all"
+      >
+        Load More <i data-lucide="chevron-down" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <!-- Thông báo khi không tìm thấy kết quả -->
+    <div id="no-results" class="hidden text-center py-20">
+      <i
+        data-lucide="folder-search"
+        class="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4"
+      ></i>
+      <h3 class="text-xl font-medium text-slate-700 dark:text-slate-300">
+        No projects found
+      </h3>
+      <p class="text-slate-500 mt-2">
+        Try adjusting your search or filter criteria.
+      </p>
+    </div>
+  </div>
+</section>
