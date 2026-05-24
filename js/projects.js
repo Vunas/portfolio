@@ -22,9 +22,10 @@ class ProjectManager {
     this.startX = 0;
 
     this.injectStyles();
+    this.createModalContainer();
   }
 
-  // Khởi tạo CSS động cho Slider & Grid Animations
+  // Khởi tạo CSS động cho Slider, Grid Animations & Premium Modal
   injectStyles() {
     if (document.getElementById("premium-slider-styles")) return;
     const style = document.createElement("style");
@@ -83,8 +84,64 @@ class ProjectManager {
         opacity: 0;
         pointer-events: none;
       }
+
+      /* Styles cho Premium Modal Animations (Linear/Vercel Vibe) */
+      @keyframes modal-backdrop-in {
+        from { opacity: 0; backdrop-filter: blur(0px); }
+        to { opacity: 1; backdrop-filter: blur(4px); }
+      }
+      @keyframes modal-backdrop-out {
+        from { opacity: 1; backdrop-filter: blur(4px); }
+        to { opacity: 0; backdrop-filter: blur(0px); }
+      }
+      /* Animation Snappy, Subtle Scale */
+      @keyframes modal-content-in {
+        from { opacity: 0; transform: scale(0.98) translateY(10px); }
+        to { opacity: 1; transform: scale(1) translateY(0); }
+      }
+      @keyframes modal-content-out {
+        from { opacity: 1; transform: scale(1) translateY(0px); }
+        to { opacity: 0; transform: scale(0.98) translateY(10px); }
+      }
+      
+      .modal-backdrop.opening { animation: modal-backdrop-in 0.25s ease-out forwards; }
+      .modal-backdrop.closing { animation: modal-backdrop-out 0.2s ease-in forwards; }
+      .modal-content.opening { animation: modal-content-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+      .modal-content.closing { animation: modal-content-out 0.2s ease-in forwards; }
+      
+      /* Custom Scrollbar cho 2 cột độc lập trong Modal */
+      .custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+      .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+      .custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+      .dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
+      .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #cbd5e1; }
+      .dark .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #475569; }
+
+      /* Ngăn chặn scroll body khi mở modal */
+      body.modal-open { overflow: hidden; padding-right: 15px; }
+      
+      /* Utilities cho UI mới */
+      .glass-header {
+        background: rgba(255, 255, 255, 0.85);
+        backdrop-filter: blur(12px);
+        -webkit-backdrop-filter: blur(12px);
+      }
+      .dark .glass-header {
+        background: rgba(15, 23, 42, 0.85);
+      }
     `;
     document.head.appendChild(style);
+  }
+
+  // Tạo container cố định cho Modal ở ngoài cùng body
+  createModalContainer() {
+    if (document.getElementById("project-modal-root")) return;
+    const modalRoot = document.createElement("div");
+    modalRoot.id = "project-modal-root";
+    // Padding nhỏ trên mobile, lớn hơn trên desktop để tạo viền an toàn
+    modalRoot.className =
+      "fixed inset-0 z-[100] hidden flex items-center justify-center p-0 sm:p-4 md:p-8 lg:p-12";
+    document.body.appendChild(modalRoot);
   }
 
   async loadProjects() {
@@ -167,11 +224,22 @@ class ProjectManager {
       }
     });
 
-    // 4. Lắng nghe phím điều hướng (Chỉ khi ở chế độ Slider)
+    // 4. Lắng nghe phím điều hướng và Escape cho Modal
     document.addEventListener("keydown", (e) => {
-      if (this.currentLayout !== "slider") return;
-      if (e.key === "ArrowRight") this.next();
-      if (e.key === "ArrowLeft") this.prev();
+      // Đóng modal khi bấm Escape
+      if (e.key === "Escape") {
+        this.closeModal();
+      }
+
+      // Điều hướng slider khi không mở modal
+      const modalOpen =
+        document
+          .getElementById("project-modal-root")
+          .classList.contains("hidden") === false;
+      if (this.currentLayout === "slider" && !modalOpen) {
+        if (e.key === "ArrowRight") this.next();
+        if (e.key === "ArrowLeft") this.prev();
+      }
     });
   }
 
@@ -257,7 +325,6 @@ class ProjectManager {
   // BỐ CỤC 1: 3D SLIDER (HÌNH CHỮ NHẬT WIDESCREEN)
   // ==========================================
   buildSliderHTML() {
-    // Chiều cao được thu hẹp (h-450px) để không che hết màn hình
     return `
       <div class="relative w-full h-[500px] md:h-[420px] flex items-center justify-center overflow-hidden rounded-[2rem] bg-slate-50 dark:bg-slate-900/20">
         <div id="slider-container" class="relative w-full h-full mx-auto">
@@ -293,14 +360,12 @@ class ProjectManager {
               <div class="w-full md:w-[40%] p-6 md:p-10 flex flex-col justify-center relative z-20">
                 <div class="card-content flex flex-col h-full justify-center">
                   
-                
-
-                  <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 leading-tight">${project.title}</h3>
+                  <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 leading-tight group-hover:text-primary-600 transition-colors">${project.title}</h3>
                   <p class="text-slate-600 dark:text-slate-400 text-sm mb-8 line-clamp-3 md:line-clamp-none leading-relaxed">
                     ${project.description}
                   </p>
 
-                  <div class="flex items-center gap-3 mt-auto">
+                   <div class="flex items-center gap-3 mt-auto" onclick="event.stopPropagation()">
                     ${
                       project.demo
                         ? `
@@ -358,7 +423,7 @@ class ProjectManager {
         ${visibleProjects
           .map(
             (project, index) => `
-          <div class="flex flex-col bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group" style="animation-delay: ${index * 50}ms">
+          <div class="flex flex-col bg-white dark:bg-slate-800 rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-700/80 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 group cursor-pointer grid-card" data-index="${index}" style="animation-delay: ${index * 50}ms">
             
             <div class="h-48 relative overflow-hidden bg-slate-100 dark:bg-slate-900">
               <img src="${project.image}" alt="${project.title}" onerror="this.src='https://placehold.co/600x400/1e293b/ffffff?text=${encodeURIComponent(project.title)}'; this.onerror=null;" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
@@ -369,7 +434,7 @@ class ProjectManager {
               <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2 group-hover:text-primary-500 transition-colors">${project.title}</h3>
               <p class="text-slate-600 dark:text-slate-400 text-sm mb-4 line-clamp-2 flex-grow">${project.description}</p>
               
-              <div class="flex flex-wrap gap-1.5 mb-5">
+              <div class="flex flex-wrap gap-1.5 mb-2">
                 ${project.tags
                   .slice(0, 3)
                   .map(
@@ -377,11 +442,6 @@ class ProjectManager {
                       `<span class="bg-slate-100 dark:bg-slate-700/50 text-slate-600 dark:text-slate-300 text-[10px] font-medium px-2 py-1 rounded">${tag}</span>`,
                   )
                   .join("")}
-              </div>
-
-              <div class="flex items-center gap-3 pt-4 border-t border-slate-100 dark:border-slate-700 mt-auto">
-                ${project.demo ? `<a href="${project.demo}" target="_blank" class="flex-1 text-center bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 py-2 rounded-lg text-xs font-semibold transition-colors">Preview</a>` : ""}
-                ${project.github ? `<a href="${project.github}" target="_blank" class="p-2 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg text-slate-600 dark:text-slate-300 transition-colors"><i class="fa-brands fa-github"></i></a>` : ""}
               </div>
             </div>
           </div>
@@ -406,6 +466,305 @@ class ProjectManager {
   }
 
   // ==========================================
+  // PREMIUM MODAL / DIALOG LOGIC (Linear/Vercel Vibe)
+  // ==========================================
+  openModal(project) {
+    const modalRoot = document.getElementById("project-modal-root");
+    if (!modalRoot) return;
+
+    // Data Extraction
+    const images =
+      project.images && project.images.length > 0
+        ? project.images
+        : [project.image];
+    const featuresList =
+      project.features && project.features.length > 0
+        ? project.features
+        : [
+            "Detailed technical implementation.",
+            "Robust database architecture.",
+            "Secure and scalable authentication.",
+          ];
+
+    // Mocking Advanced Stats based on title for the "Senior" vibe
+    const durationStr = project.title.includes("System")
+      ? "3-4 Months"
+      : "2 Months";
+    const roleStr = project.title.includes("POS")
+      ? "Full-stack Leader"
+      : "Full-stack Developer";
+    const typeStr =
+      project.title.includes("API") || project.title.includes("Backend")
+        ? "Backend & Architecture"
+        : "End-to-end Product";
+
+    modalRoot.innerHTML = `
+      <!-- Lớp phủ tối (Darken Overlay) -->
+      <div class="modal-backdrop absolute inset-0 bg-slate-900/40 dark:bg-black/60 opening" onclick="projectManager.closeModal()"></div>
+      
+      <!-- Cấu trúc Modal Chính: 100vh trên mobile, h-[90vh] có bo góc trên Desktop -->
+      <div class="modal-content relative w-full h-full sm:h-[90vh] max-w-7xl bg-white dark:bg-slate-900 sm:rounded-[2rem] shadow-2xl flex flex-col opening overflow-hidden border border-slate-200/50 dark:border-slate-700/50">
+        
+        <!-- ================= STICKY HEADER (Glassmorphism) ================= -->
+        <header class="glass-header sticky top-0 z-50 px-5 py-4 border-b border-slate-200/50 dark:border-slate-800/80 flex justify-between items-start sm:items-center flex-col sm:flex-row gap-4 shrink-0">
+          
+          <!-- Title & Tags -->
+          <div class="flex flex-col pr-4">
+            <h2 class="text-xl sm:text-2xl font-bold tracking-tight text-slate-900 dark:text-white flex items-center gap-2">
+              ${project.title}
+            </h2>
+            <div class="flex flex-wrap gap-2 mt-2">
+              ${project.tags
+                .slice(0, 4)
+                .map(
+                  (tag) =>
+                    `<span class="px-2.5 py-0.5 rounded-md bg-slate-100 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-600 dark:text-slate-300 text-[11px] font-medium tracking-wide">${tag}</span>`,
+                )
+                .join("")}
+              ${project.tags.length > 4 ? `<span class="px-2.5 py-0.5 rounded-md text-slate-500 text-[11px] font-medium">+${project.tags.length - 4}</span>` : ""}
+            </div>
+          </div>
+
+          <!-- Actions & Close -->
+          <div class="flex items-center gap-3 w-full sm:w-auto justify-end">
+            <!-- Action Buttons (Hidden on ultra-small mobile, shown on sm+) -->
+            <div class="hidden sm:flex items-center gap-2 mr-2">
+              ${
+                project.demo
+                  ? `
+                <a href="${project.demo}" target="_blank" class="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 rounded-lg text-sm font-medium transition-all shadow-sm flex items-center gap-2">
+                  <i data-lucide="external-link" class="w-4 h-4"></i> Live
+                </a>
+              `
+                  : ""
+              }
+              ${
+                project.github
+                  ? `
+                <a href="${project.github}" target="_blank" class="px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700 rounded-lg text-sm font-medium transition-all shadow-sm flex items-center gap-2">
+                  <i class="fa-brands fa-github"></i> Code
+                </a>
+              `
+                  : ""
+              }
+            </div>
+            
+            <!-- Separator -->
+            <div class="hidden sm:block w-px h-6 bg-slate-200 dark:bg-slate-700"></div>
+
+            <!-- Close Button -->
+            <button onclick="projectManager.closeModal()" class="w-9 h-9 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors" title="Close (Esc)">
+              <i data-lucide="x" class="w-5 h-5"></i>
+            </button>
+          </div>
+        </header>
+
+        <!-- ================= MODAL BODY (2 CỘT) ================= -->
+        <div class="flex flex-col lg:flex-row flex-1 overflow-hidden bg-slate-50/30 dark:bg-slate-900/30">
+          
+          <!-- L LEFT COLUMN: VISUAL SHOWCASE (58%) -->
+          <div class="w-full lg:w-[58%] p-5 sm:p-8 flex flex-col overflow-y-auto custom-scrollbar lg:border-r border-slate-200/50 dark:border-slate-800/80">
+            
+            <!-- Hero Image -->
+            <div class="relative w-full rounded-xl overflow-hidden bg-slate-200 dark:bg-slate-800/50 aspect-video shadow-sm border border-slate-200/80 dark:border-slate-700/50 group">
+              <img id="modal-main-img" src="${images[0]}" alt="${project.title}" onerror="this.src='https://placehold.co/800x600/1e293b/ffffff?text=${encodeURIComponent(project.title)}'; this.onerror=null;" class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-[1.02]" />
+            </div>
+            
+            <!-- Elegant Gallery Thumbnails -->
+            ${
+              images.length > 1
+                ? `
+              <div class="mt-4 flex gap-3 overflow-x-auto pb-2 custom-scrollbar px-1">
+                ${images
+                  .map(
+                    (img, i) => `
+                  <button class="thumbnail-btn relative w-28 h-16 shrink-0 rounded-lg overflow-hidden border-2 ${i === 0 ? "border-primary-500 ring-2 ring-primary-500/20" : "border-transparent"} hover:border-slate-300 dark:hover:border-slate-600 transition-all opacity-80 hover:opacity-100" data-img="${img}">
+                    <img src="${img}" class="w-full h-full object-cover" />
+                  </button>
+                `,
+                  )
+                  .join("")}
+              </div>
+            `
+                : ""
+            }
+
+          </div>
+
+          <!-- R RIGHT COLUMN: TECHNICAL CONTENT (42%) -->
+          <div class="w-full lg:w-[42%] p-5 sm:p-8 flex flex-col bg-white dark:bg-slate-900 overflow-y-auto custom-scrollbar">
+            
+            <!-- Quick Stats Row -->
+            <div class="grid grid-cols-2 gap-3 mb-8">
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                <span class="block text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Role</span>
+                <span class="text-sm font-medium text-slate-800 dark:text-slate-200">${roleStr}</span>
+              </div>
+              <div class="p-3 rounded-xl bg-slate-50 dark:bg-slate-800/50 border border-slate-100 dark:border-slate-800">
+                <span class="block text-[10px] uppercase font-bold text-slate-400 mb-1 tracking-wider">Timeline</span>
+                <span class="text-sm font-medium text-slate-800 dark:text-slate-200">${durationStr}</span>
+              </div>
+            </div>
+
+            <!-- Section: Overview -->
+            <div class="mb-8">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-3 uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="align-left" class="w-4 h-4 text-slate-400"></i> Project Overview
+              </h3>
+              <p class="text-slate-600 dark:text-slate-400 text-sm md:text-[15px] leading-relaxed">
+                ${project.description}
+              </p>
+            </div>
+
+            <!-- Section: Key Engineering Features -->
+            <div class="mb-8">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-4 uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="cpu" class="w-4 h-4 text-slate-400"></i> Key Engineering
+              </h3>
+              <ul class="space-y-4">
+                ${featuresList
+                  .map(
+                    (feature) => `
+                  <li class="flex items-start gap-3 group">
+                    <div class="mt-1 flex-shrink-0 w-5 h-5 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 dark:text-slate-400 group-hover:bg-primary-50 dark:group-hover:bg-primary-900/30 group-hover:text-primary-500 transition-colors">
+                      <i data-lucide="check" class="w-3 h-3"></i>
+                    </div>
+                    <span class="text-[14px] text-slate-700 dark:text-slate-300 leading-relaxed">${feature}</span>
+                  </li>
+                `,
+                  )
+                  .join("")}
+              </ul>
+            </div>
+
+            <!-- Section: Tech Stack (Premium Pills) -->
+            <div class="mb-8">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-3 uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="layers" class="w-4 h-4 text-slate-400"></i> Technology Stack
+              </h3>
+              <div class="flex flex-wrap gap-2">
+                ${project.tags
+                  .map(
+                    (tag) => `
+                  <span class="px-3 py-1.5 rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 text-[13px] font-medium shadow-sm hover:border-slate-300 dark:hover:border-slate-500 cursor-default transition-colors">
+                    ${tag}
+                  </span>
+                `,
+                  )
+                  .join("")}
+              </div>
+            </div>
+
+            <!-- Section: Architecture Context (Auto-generated to fill layout & look professional) -->
+            <div class="mb-4">
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-3 uppercase tracking-wider flex items-center gap-2">
+                <i data-lucide="layout-template" class="w-4 h-4 text-slate-400"></i> Architecture Scope
+              </h3>
+              <p class="text-[14px] text-slate-600 dark:text-slate-400 leading-relaxed p-4 rounded-xl bg-slate-50 dark:bg-slate-800/30 border border-slate-100 dark:border-slate-800">
+                Engineered as a <strong>${typeStr}</strong> prioritizing scalability and clean code principles. Incorporates modern development practices to ensure maintainability and high performance across modules.
+              </p>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ================= STICKY BOTTOM BAR (Mobile Only) ================= -->
+        <div class="sm:hidden sticky bottom-0 z-50 p-4 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-t border-slate-200 dark:border-slate-800 flex gap-3">
+           ${
+             project.demo
+               ? `
+              <a href="${project.demo}" target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-slate-900 dark:bg-white text-white dark:text-slate-900 rounded-lg text-sm font-bold shadow-md">
+                Live Preview
+              </a>
+            `
+               : ""
+           }
+            ${
+              project.github
+                ? `
+              <a href="${project.github}" target="_blank" class="flex-1 flex items-center justify-center gap-2 px-4 py-3 bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-bold">
+                <i class="fa-brands fa-github text-lg"></i> Code
+              </a>
+            `
+                : ""
+            }
+        </div>
+
+      </div>
+    `;
+
+    // Khóa scroll của body
+    document.body.classList.add("modal-open");
+
+    // Hiển thị Modal
+    modalRoot.classList.remove("hidden");
+
+    // Khởi tạo icon
+    if (window.lucide) window.lucide.createIcons({ root: modalRoot });
+
+    // Gắn sự kiện cho Gallery Thumbnails (Smooth Fade)
+    if (images.length > 1) {
+      const thumbnails = modalRoot.querySelectorAll(".thumbnail-btn");
+      const mainImg = modalRoot.querySelector("#modal-main-img");
+
+      thumbnails.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          // Hiệu ứng mờ ảnh main khi đổi
+          mainImg.style.opacity = "0.3";
+          mainImg.style.transform = "scale(0.98)";
+
+          setTimeout(() => {
+            mainImg.src = btn.dataset.img;
+            mainImg.style.opacity = "1";
+            mainImg.style.transform = "scale(1)";
+          }, 200);
+
+          // Cập nhật viền cho thumbnail được chọn
+          thumbnails.forEach((t) => {
+            t.classList.remove(
+              "border-primary-500",
+              "ring-2",
+              "ring-primary-500/20",
+            );
+            t.classList.add("border-transparent");
+          });
+          btn.classList.remove("border-transparent");
+          btn.classList.add(
+            "border-primary-500",
+            "ring-2",
+            "ring-primary-500/20",
+          );
+        });
+      });
+    }
+  }
+
+  closeModal() {
+    const modalRoot = document.getElementById("project-modal-root");
+    if (!modalRoot || modalRoot.classList.contains("hidden")) return;
+
+    const backdrop = modalRoot.querySelector(".modal-backdrop");
+    const content = modalRoot.querySelector(".modal-content");
+
+    // Đổi class để chạy animation Đóng
+    if (backdrop) {
+      backdrop.classList.remove("opening");
+      backdrop.classList.add("closing");
+    }
+    if (content) {
+      content.classList.remove("opening");
+      content.classList.add("closing");
+    }
+
+    // Chờ animation kết thúc mới ẩn div (giảm xuống 200ms cho snappier)
+    setTimeout(() => {
+      modalRoot.classList.add("hidden");
+      document.body.classList.remove("modal-open"); // Mở khóa scroll
+      modalRoot.innerHTML = ""; // Clear DOM
+    }, 200);
+  }
+
+  // ==========================================
   // XỬ LÝ SỰ KIỆN RIÊNG TỪNG LAYOUT
   // ==========================================
   setupGridInteractions(wrapper) {
@@ -416,6 +775,16 @@ class ProjectManager {
         this.updateUI();
       });
     }
+
+    // Sự kiện mở Modal cho Grid
+    const gridCards = wrapper.querySelectorAll(".grid-card");
+    gridCards.forEach((card) => {
+      card.addEventListener("click", () => {
+        const index = card.getAttribute("data-index");
+        const project = this.filteredProjects[index];
+        if (project) this.openModal(project);
+      });
+    });
   }
 
   setupSliderInteractions(wrapper) {
@@ -428,9 +797,14 @@ class ProjectManager {
     const cards = wrapper.querySelectorAll(".project-card");
     cards.forEach((card, idx) => {
       card.addEventListener("click", () => {
+        // Nếu click vào card KHÁC card đang focus (ở giữa) => Trượt tới card đó
         if (this.currentIndex !== idx) {
           this.currentIndex = idx;
           this.updateSliderTransforms();
+        } else {
+          // Nếu click vào card ĐANG focus (ở giữa) => Mở Modal
+          const project = this.filteredProjects[idx];
+          if (project) this.openModal(project);
         }
       });
     });
@@ -529,3 +903,17 @@ class ProjectManager {
     }
   }
 }
+
+// Khởi tạo global instance để sử dụng trong thuộc tính onclick của HTML
+window.projectManager = null;
+
+// Ghi đè hàm bootstrapApp hoặc bắt sự kiện DOMContentLoaded để gán instance
+document.addEventListener("DOMContentLoaded", () => {
+  // Đợi một chút để các phần HTML được inject vào qua hàm loadHTMLComponent (nếu có)
+  setTimeout(() => {
+    if (!window.projectManager && document.getElementById("projects-grid")) {
+      window.projectManager = new ProjectManager();
+      window.projectManager.loadProjects();
+    }
+  }, 200);
+});
