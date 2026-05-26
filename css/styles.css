@@ -86,3 +86,96 @@ body {
 .image-offset-bg:hover::after {
   transform: translate(0.5rem, 0.5rem);
 }
+/* Animation cho Grid Mode */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up { animation: fade-up 0.5s ease-out forwards; }
+
+/* Styles cho 3D Slider */
+#slider-view {
+  perspective: 1200px;
+  transform-style: preserve-3d;
+}
+.project-card {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 90%;
+  max-width: 900px;
+  height: 100%;
+  transform-origin: center center;
+  transition: all 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform, opacity, filter;
+  cursor: pointer;
+  border-radius: 1.5rem;
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+}
+@media (min-width: 768px) {
+  .project-card { width: 75%; border-radius: 2rem; }
+}
+.card-content {
+  opacity: 0;
+  transform: translateX(20px);
+  transition: all 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) 0.2s;
+}
+.project-card.active .card-content {
+  opacity: 1;
+  transform: translateX(0);
+}
+.project-card:not(.active) .card-content {
+  pointer-events: none;
+}
+.inactive-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.25);
+  transition: opacity 0.5s ease;
+  z-index: 30;
+}
+.dark .inactive-overlay { background: rgba(0,0,0,0.65); }
+.project-card.active .inactive-overlay {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Styles cho Premium Modal Animations */
+@keyframes modal-backdrop-in {
+  from { opacity: 0; backdrop-filter: blur(0px); }
+  to { opacity: 1; backdrop-filter: blur(4px); }
+}
+@keyframes modal-backdrop-out {
+  from { opacity: 1; backdrop-filter: blur(4px); }
+  to { opacity: 0; backdrop-filter: blur(0px); }
+}
+@keyframes modal-content-in {
+  from { opacity: 0; transform: scale(0.98) translateY(10px); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
+}
+@keyframes modal-content-out {
+  from { opacity: 1; transform: scale(1) translateY(0px); }
+  to { opacity: 0; transform: scale(0.98) translateY(10px); }
+}
+
+.modal-backdrop.opening { animation: modal-backdrop-in 0.25s ease-out forwards; }
+.modal-backdrop.closing { animation: modal-backdrop-out 0.2s ease-in forwards; }
+.modal-content.opening { animation: modal-content-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
+.modal-content.closing { animation: modal-content-out 0.2s ease-in forwards; }
+
+/* Custom Scrollbar cho Modal */
+.custom-scrollbar::-webkit-scrollbar { width: 5px; height: 5px; }
+.custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+.custom-scrollbar::-webkit-scrollbar-thumb { background: #e2e8f0; border-radius: 10px; }
+.dark .custom-scrollbar::-webkit-scrollbar-thumb { background: #334155; }
+.custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #cbd5e1; }
+.dark .custom-scrollbar:hover::-webkit-scrollbar-thumb { background: #475569; }
+
+/* Utilities chống scroll body khi mở modal */
+body.modal-open { overflow: hidden; padding-right: 15px; }
+.glass-header {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+.dark .glass-header { background: rgba(15, 23, 42, 0.85); }

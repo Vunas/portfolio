@@ -1,6 +1,6 @@
 <section
   id="projects"
-  class="relative z-10 py-24 bg-slate-50 dark:bg-slate-900/50"
+  class="relative z-10 py-24 bg-slate-50 dark:bg-slate-900/50 min-h-screen"
 >
   <div class="container mx-auto px-6 md:px-12 max-w-6xl reveal">
     <!-- Tiêu đề -->
@@ -11,15 +11,13 @@
       <div class="h-px bg-slate-200 dark:bg-slate-800 flex-grow"></div>
     </div>
 
-    <!-- Thanh công cụ: Search & Filter -->
+    <!-- Thanh Filter & Search -->
     <div
-      class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-2"
+      class="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-6"
     >
-      <!-- Nút Filter (Render bằng JS) -->
       <div id="filter-container" class="flex flex-wrap gap-2">
+        <!-- JS Render Filter Tags here -->
       </div>
-
-      <!-- Ô Search -->
       <div class="relative w-full md:w-72">
         <div
           class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
@@ -35,39 +33,105 @@
       </div>
     </div>
 
-    <!-- Container chứa LƯỚI các dự án (Grid) -->
+    <!-- Toolbar Tổng quan & Layout Switcher -->
     <div
-      id="projects-grid"
-      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+      class="flex justify-between items-center bg-white dark:bg-slate-800/50 p-3 px-5 rounded-2xl border border-slate-200 dark:border-slate-700/50 shadow-sm mb-6"
     >
-      <!-- JS sẽ render các thẻ card dự án vào đây -->
-      <div class="col-span-full text-center text-slate-500 animate-pulse py-10">
-        Loading projects...
+      <div class="text-slate-600 dark:text-slate-400 text-sm">
+        Found
+        <span
+          id="project-count"
+          class="font-bold text-primary-600 dark:text-primary-400"
+          >0</span
+        >
+        projects
+      </div>
+      <div class="flex gap-1 bg-slate-100 dark:bg-slate-900 p-1 rounded-xl">
+        <button
+          data-layout="slider"
+          class="layout-btn p-2 rounded-lg flex items-center gap-2 text-xs font-semibold transition-all text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+        >
+          <i data-lucide="gallery-horizontal" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Carousel</span>
+        </button>
+        <button
+          data-layout="grid"
+          class="layout-btn p-2 rounded-lg flex items-center gap-2 text-xs font-semibold transition-all text-slate-500 hover:text-slate-700 dark:hover:text-slate-300"
+        >
+          <i data-lucide="layout-grid" class="w-4 h-4"></i>
+          <span class="hidden sm:inline">Grid</span>
+        </button>
       </div>
     </div>
 
-    <!-- Nút Load More -->
-    <div id="load-more-container" class="mt-16 text-center hidden">
-      <button
-        id="load-more-btn"
-        class="inline-flex items-center gap-2 px-6 py-3 rounded-lg border border-slate-300 dark:border-slate-700 hover:border-primary-500 dark:hover:border-primary-500 hover:text-primary-600 dark:hover:text-primary-400 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 font-medium transition-all"
-      >
-        Load More <i data-lucide="chevron-down" class="w-4 h-4"></i>
-      </button>
-    </div>
+    <!-- VIEWS CONTAINER -->
+    <div id="projects-wrapper" class="w-full relative">
+      <!-- 1. GRID VIEW -->
+      <div id="grid-view" class="hidden">
+        <div
+          id="grid-container"
+          class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 animate-fade-up"
+        >
+          <!-- Grid cards injected here by JS -->
+        </div>
+        <div id="load-more-container" class="mt-8 text-center hidden">
+          <button
+            id="load-more-btn"
+            class="inline-flex items-center gap-2 px-6 py-2.5 rounded-full border border-slate-300 dark:border-slate-600 hover:border-primary-500 dark:hover:border-primary-500 text-sm font-medium transition-all text-slate-600 dark:text-slate-300"
+          >
+            Show more <i data-lucide="chevron-down" class="w-4 h-4"></i>
+          </button>
+        </div>
+      </div>
 
-    <!-- Thông báo khi không tìm thấy kết quả -->
-    <div id="no-results" class="hidden text-center py-20">
-      <i
-        data-lucide="folder-search"
-        class="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4"
-      ></i>
-      <h3 class="text-xl font-medium text-slate-700 dark:text-slate-300">
-        No projects found
-      </h3>
-      <p class="text-slate-500 mt-2">
-        Try adjusting your search or filter criteria.
-      </p>
+      <!-- 2. SLIDER VIEW -->
+      <div id="slider-view" class="hidden">
+        <div
+          class="relative w-full h-[500px] md:h-[420px] flex items-center justify-center overflow-hidden rounded-[2rem] bg-slate-50 dark:bg-slate-900/20"
+        >
+          <div id="slider-container" class="relative w-full h-full mx-auto">
+            <!-- Slider cards injected here by JS -->
+          </div>
+          <!-- Navigation -->
+          <button
+            id="slider-prev"
+            class="absolute left-2 md:left-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-primary-600 hover:border-primary-500 transition-all shadow-md z-40 md:flex"
+          >
+            <i data-lucide="chevron-left" class="w-5 h-5"></i>
+          </button>
+          <button
+            id="slider-next"
+            class="absolute right-2 md:right-4 top-1/2 -translate-y-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-white/90 dark:bg-slate-800/90 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:text-primary-600 hover:border-primary-500 transition-all shadow-md z-40 md:flex"
+          >
+            <i data-lucide="chevron-right" class="w-5 h-5"></i>
+          </button>
+          <!-- Pagination -->
+          <div
+            id="slider-pagination"
+            class="absolute bottom-4 left-0 right-0 flex justify-center gap-1.5 z-40"
+          ></div>
+        </div>
+      </div>
+
+      <!-- NO RESULTS MESSAGE -->
+      <div id="no-results" class="hidden text-center py-20">
+        <i
+          data-lucide="folder-search"
+          class="w-16 h-16 mx-auto text-slate-300 dark:text-slate-700 mb-4"
+        ></i>
+        <h3 class="text-xl font-medium text-slate-700 dark:text-slate-300">
+          No projects found
+        </h3>
+        <p class="text-slate-500 mt-2">
+          Try adjusting your search or filter criteria.
+        </p>
+      </div>
     </div>
   </div>
 </section>
+
+<!-- ROOT MODAL CHO PROJECT -->
+<div
+  id="project-modal-root"
+  class="fixed inset-0 z-[100] hidden items-center justify-center p-0 sm:p-4 md:p-8 lg:p-12"
+></div>

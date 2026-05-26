@@ -4,7 +4,12 @@
     "title": "Warehouse Management System (WMS)",
     "description": "A comprehensive web application for warehouse logistics to track real-time inventory across multiple zones, shelves, and bins. Features inbound/outbound order verification, automated stock alerts, and a normalized PostgreSQL schema to efficiently manage products and internal stock movements.",
     "image": "./public/assets/img/wms.png",
-    "images": ["./public/assets/img/wms.png", "./public/assets/img/wms-2.png", "./public/assets/img/wms-3.png", "./public/assets/img/wms-4.png"],
+    "images": [
+      "./public/assets/img/wms.png",
+      "./public/assets/img/wms-2.png",
+      "./public/assets/img/wms-3.png",
+      "./public/assets/img/wms-4.png"
+    ],
     "tags": ["Laravel", "PHP", "PostgreSQL", "Tailwind CSS"],
     "github": "https://github.com/vunas/warehouse-management",
     "demo": "https://warehouse-management-roqy.onrender.com/admin",
@@ -14,14 +19,22 @@
       "Designed a PostgreSQL schema to manage products, batches, suppliers, and internal stock movements efficiently.",
       "Implemented inbound/outbound order verification flows and automated stock alerts for expiring materials.",
       "Built a clear and responsive management dashboard using Laravel Blade and Tailwind CSS."
-    ]
+    ],
+    "timeline": "Jan 2026 - May 2026"
   },
   {
     "id": 2,
     "title": "SecureSign (Digital Signature System)",
     "description": "A secure full-stack web tool for uploading PDF files, generating digital signatures, and validating document authenticity. Utilizes RSA cryptography for secure key generation and features PostgreSQL JSONB event logging to track user actions and maintain cryptographic audit trails.",
     "image": "./public/assets/img/securesign.png",
-    "images": ["./public/assets/img/securesign.png","./public/assets/img/securesign-2.png","./public/assets/img/securesign-3.png","./public/assets/img/securesign-4.png","./public/assets/img/securesign-5.png","./public/assets/img/securesign-6.png"],
+    "images": [
+      "./public/assets/img/securesign.png",
+      "./public/assets/img/securesign-2.png",
+      "./public/assets/img/securesign-3.png",
+      "./public/assets/img/securesign-4.png",
+      "./public/assets/img/securesign-5.png",
+      "./public/assets/img/securesign-6.png"
+    ],
     "tags": ["FastAPI", "PostgreSQL", "SQLAlchemy", "Tailwind CSS"],
     "github": "https://github.com/Vunas/digital-signature-system",
     "demo": "https://securesign-ujd9.onrender.com",
@@ -31,14 +44,21 @@
       "Applied RSA cryptography algorithm for secure key generation to prevent document tampering.",
       "Utilized FastAPI and SQLAlchemy to handle user signing flows, integrated with Supabase for robust cloud storage and deployment compatibility.",
       "Implemented event logging via PostgreSQL JSONB to track user actions, IP records, and cryptographic audit trails."
-    ]
+    ],
+    "timeline": "Apr 2026 - Present"
   },
   {
     "id": 3,
     "title": "Fast Food POS System",
     "description": "A comprehensive Point of Sale system tailored for fast-food restaurants. Features real-time kitchen order processing, inventory tracking, staff role management, and detailed sales analytics.",
     "image": "./public/assets/img/pos.png",
-    "images": ["./public/assets/img/pos.png", "./public/assets/img/pos-2.png", "./public/assets/img/pos-3.png", "./public/assets/img/pos-4.png", "./public/assets/img/pos-5.png"],
+    "images": [
+      "./public/assets/img/pos.png",
+      "./public/assets/img/pos-2.png",
+      "./public/assets/img/pos-3.png",
+      "./public/assets/img/pos-4.png",
+      "./public/assets/img/pos-5.png"
+    ],
     "tags": ["React.js", "NestJS", "PostgreSQL", "Socket.io"],
     "github": "https://github.com/Vunas/CNPM",
     "demo": "https://cnpm-rose.vercel.app/qrcodepage",
@@ -49,7 +69,8 @@
       "Designed a secure RESTful API with NestJS, utilizing JWT and bcrypt to handle authentication and sign-in sessions.",
       "Implemented role-based client-side routing and dynamic UI rendering to seamlessly direct Admin, Staff, and Kitchen accounts to their respective management views.",
       "Automated invoice generation, and state-driven table status management (Active, Locked, In-use, Reserved)."
-    ]
+    ],
+    "timeline": "Mar 2025 - May 2025"
   },
   {
     "id": 4,
@@ -65,14 +86,22 @@
       "Developed a local Retrieval-Augmented Generation (RAG) tool to parse, analyze, and query offline documents.",
       "Integrated local Large Language Models via Ollama and FAISS for efficient vector storage and accurate text retrieval.",
       "Optimized prompt engineering for reliable text extraction from complex data formats."
-    ]
+    ],
+    "timeline": "Mar 2026 - May 2026"
   },
   {
     "id": 5,
     "title": "SoundWave (Audio Streaming Platform)",
     "description": "An audio streaming platform developed using a Monorepo structure, featuring synchronized media playback. Includes a robust relational database designed with Prisma to systematically manage users, music tracks, and public playlists, fully secured by JWT authentication and refresh mechanisms.",
     "image": "./public/assets/img/soundwave.jpg",
-    "images": ["./public/assets/img/soundwave.jpg", "./public/assets/img/soundwave-2.jpg", "./public/assets/img/soundwave-3.jpg", "./public/assets/img/soundwave-4.jpg", "./public/assets/img/soundwave-5.jpg", "./public/assets/img/soundwave-6.jpg"],
+    "images": [
+      "./public/assets/img/soundwave.jpg",
+      "./public/assets/img/soundwave-2.jpg",
+      "./public/assets/img/soundwave-3.jpg",
+      "./public/assets/img/soundwave-4.jpg",
+      "./public/assets/img/soundwave-5.jpg",
+      "./public/assets/img/soundwave-6.jpg"
+    ],
     "tags": ["Next.js", "NestJS", "PostgreSQL", "Prisma", "JWT"],
     "github": "https://github.com/vunas/soundwave",
     "demo": "",
@@ -81,14 +110,20 @@
       "Developed an audio streaming platform using a Monorepo structure, featuring synchronized media playback.",
       "Designed a robust relational database with Prisma to systematically manage users, music tracks, and public playlists.",
       "Fully secured the application via robust JWT authentication and token refresh mechanisms."
-    ]
+    ],
+    "timeline": "Oct 2025 - Dec 2025"
   },
   {
     "id": 6,
     "title": "TechZone E-Commerce",
     "description": "A full-stack e-commerce platform dedicated to electronic devices (concept similar to The Gioi Di Dong). Includes advanced product filtering, secure cart management, user authentication, and a robust admin dashboard.",
     "image": "./public/assets/img/ec.png",
-    "images": ["./public/assets/img/ec.png", "./public/assets/img/ec-2.png", "./public/assets/img/ec-3.png", "./public/assets/img/ec-4.png"],
+    "images": [
+      "./public/assets/img/ec.png",
+      "./public/assets/img/ec-2.png",
+      "./public/assets/img/ec-3.png",
+      "./public/assets/img/ec-4.png"
+    ],
     "tags": ["Next.js", "TypeScript", "PostgreSQL", "Prisma"],
     "github": "https://github.com/vinh047/eCommerce-Mobile",
     "demo": "https://e-commerce-mobile-sgu.vercel.app/",
@@ -97,14 +132,20 @@
       "Built a full-stack e-commerce platform dedicated to electronic devices.",
       "Implemented advanced product filtering, secure cart management, and user authentication.",
       "Developed a robust admin dashboard for complete inventory and order management system."
-    ]
+    ],
+    "timeline": "Sep 2025 - Jan 2026"
   },
   {
     "id": 7,
     "title": "Phone Store Management System",
     "description": "A desktop-based phone store management system built with Java Swing and MySQL, featuring inventory management, invoicing, warranty tracking, role-based access control, employee management, and business statistics visualization following the MVC architecture.",
     "image": "./public/assets/img/phone-store.png",
-    "images": ["./public/assets/img/phone-store.png", "./public/assets/img/phone-store-2.png", "./public/assets/img/phone-store-3.png", "./public/assets/img/phone-store-4.png"],
+    "images": [
+      "./public/assets/img/phone-store.png",
+      "./public/assets/img/phone-store-2.png",
+      "./public/assets/img/phone-store-3.png",
+      "./public/assets/img/phone-store-4.png"
+    ],
     "tags": ["Java", "Java Swing", "MySQL", "MVC"],
     "github": "https://github.com/Vunas/QLDT",
     "demo": "",
@@ -113,6 +154,7 @@
       "Developed a desktop-based phone store management system built with Java Swing and MySQL following the MVC architecture.",
       "Implemented comprehensive inventory management, invoicing, and warranty tracking features.",
       "Integrated role-based access control, employee management, and business statistics visualization."
-    ]
+    ],
+    "timeline": "Mar 2025 - May 2025"
   }
 ]
