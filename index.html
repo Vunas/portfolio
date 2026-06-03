@@ -121,8 +121,48 @@
         }, 100);
       }
 
-      // Bắt đầu toàn bộ quy trình khi tải xong trang web
-      document.addEventListener("DOMContentLoaded", bootstrapApp);
+      // DIRECT ROUTING
+      async function handleSmartRedirect() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetSlug = urlParams.get("redirect");
+
+        // Nếu không có tham số redirect, tải trang Portfolio bình thường
+        if (!targetSlug) {
+          bootstrapApp();
+          return;
+        }
+
+        try {
+          // Lấy dữ liệu dự án từ projects.json
+          const res = await fetch("./data/projects.json");
+          const projects = await res.json();
+
+          // Tìm dự án dựa trên slug
+          const currentProject = projects.find(
+            (p) => p.slug === targetSlug.toLowerCase(),
+          );
+
+          if (currentProject && currentProject.demo) {
+            fetch(currentProject.demo, { mode: "no-cors" }).catch(() =>
+              console.log("Direct ping dispatched."),
+            );
+
+            fetch("make.com", {
+              mode: "no-cors",
+            }).catch(() => console.log("Make.com triggered."));
+
+            window.location.replace(currentProject.demo);
+            return;
+          }
+        } catch (error) {
+          console.error("Routing error:", error);
+        }
+
+        bootstrapApp();
+      }
+
+      // Chạy bộ lọc tuyến đường ngay khi DOM sẵn sàng
+      document.addEventListener("DOMContentLoaded", handleSmartRedirect);
     </script>
   </body>
 </html>

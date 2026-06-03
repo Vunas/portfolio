@@ -2,7 +2,8 @@
   {
     "id": 1,
     "title": "Warehouse Management System (WMS)",
-    "description": "A comprehensive web application for warehouse logistics to track real-time inventory across multiple zones, shelves, and bins. Features inbound/outbound order verification, automated stock alerts, and a normalized PostgreSQL schema to efficiently manage products and internal stock movements.",
+    "slug": "wms",
+    "description": "A comprehensive web application for warehouse logistics supporting inventory tracking across hierarchical storagelocations (zones, racks, shelves, pallets, and bins). Features inbound/outbound order verification, automated stock alerts, and a normalized PostgreSQL schema to efficiently manage products and internal stock movements.",
     "image": "./public/assets/img/wms.png",
     "images": [
       "./public/assets/img/wms.png",
@@ -25,6 +26,7 @@
   {
     "id": 2,
     "title": "SecureSign (Digital Signature System)",
+    "slug": "securesign",
     "description": "A secure full-stack web tool for uploading PDF files, generating digital signatures, and validating document authenticity. Utilizes RSA cryptography for secure key generation and features PostgreSQL JSONB event logging to track user actions and maintain cryptographic audit trails.",
     "image": "./public/assets/img/securesign.png",
     "images": [
@@ -50,6 +52,7 @@
   {
     "id": 3,
     "title": "Fast Food POS System",
+    "slug": "pos",
     "description": "A comprehensive Point of Sale system tailored for fast-food restaurants. Features real-time kitchen order processing, inventory tracking, staff role management, and detailed sales analytics.",
     "image": "./public/assets/img/pos.png",
     "images": [
@@ -116,6 +119,7 @@
   {
     "id": 6,
     "title": "TechZone E-Commerce",
+    "slug": "ec",
     "description": "A full-stack e-commerce platform dedicated to electronic devices (concept similar to The Gioi Di Dong). Includes advanced product filtering, secure cart management, user authentication, and a robust admin dashboard.",
     "image": "./public/assets/img/ec.png",
     "images": [
