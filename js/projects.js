@@ -361,6 +361,18 @@ class ProjectManager {
     const modalRoot = document.getElementById("project-modal-root");
     if (!modalRoot) return;
 
+    // --- THÊM LOGIC CẬP NHẬT URL ---
+    if (project.slug) {
+      const newUrl =
+        window.location.protocol +
+        "//" +
+        window.location.host +
+        window.location.pathname +
+        `?project=${project.slug}`;
+      window.history.pushState({ path: newUrl }, "", newUrl);
+    }
+    // -------------------------------
+
     const images =
       project.images && project.images.length > 0
         ? project.images
@@ -507,6 +519,15 @@ class ProjectManager {
   closeModal() {
     const modalRoot = document.getElementById("project-modal-root");
     if (!modalRoot || modalRoot.classList.contains("hidden")) return;
+
+    // --- THÊM LOGIC XÓA THAM SỐ URL KHI ĐÓNG MODAL ---
+    const newUrl =
+      window.location.protocol +
+      "//" +
+      window.location.host +
+      window.location.pathname;
+    window.history.pushState({ path: newUrl }, "", newUrl);
+    // --------------------------------------------------
 
     const backdrop = modalRoot.querySelector(".modal-backdrop");
     const content = modalRoot.querySelector(".modal-content");

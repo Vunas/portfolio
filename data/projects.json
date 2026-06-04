@@ -78,6 +78,7 @@
   {
     "id": 4,
     "title": "SmartDoc AI (Local Document RAG)",
+    "slug": "smartdoc",
     "description": "A local Retrieval-Augmented Generation (RAG) tool designed to parse, analyze, and query offline documents. Integrates local Large Language Models via Ollama and FAISS for efficient vector storage and highly accurate text retrieval.",
     "image": "./public/assets/img/smartdoc.png",
     "images": ["./public/assets/img/smartdoc.png"],
@@ -95,6 +96,7 @@
   {
     "id": 5,
     "title": "SoundWave (Audio Streaming Platform)",
+    "slug": "soundwave",
     "description": "An audio streaming platform developed using a Monorepo structure, featuring synchronized media playback. Includes a robust relational database designed with Prisma to systematically manage users, music tracks, and public playlists, fully secured by JWT authentication and refresh mechanisms.",
     "image": "./public/assets/img/soundwave.jpg",
     "images": [
@@ -142,6 +144,7 @@
   {
     "id": 7,
     "title": "Phone Store Management System",
+    "slug": "phone-store",
     "description": "A desktop-based phone store management system built with Java Swing and MySQL, featuring inventory management, invoicing, warranty tracking, role-based access control, employee management, and business statistics visualization following the MVC architecture.",
     "image": "./public/assets/img/phone-store.png",
     "images": [
