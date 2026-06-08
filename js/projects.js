@@ -294,34 +294,44 @@ class ProjectManager {
     if (!cards.length) return;
 
     const isMobile = window.innerWidth < 768;
-    const xOffset = isMobile ? 100 : 70;
-    const scaleFactor = isMobile ? 0.9 : 0.8;
+
+    const xOffset = isMobile ? 85 : 65;
+    const scaleFactor = isMobile ? 0.85 : 0.8;
+    const rotateAngle = isMobile ? 25 : 35;
 
     cards.forEach((card, index) => {
       const diff = index - this.currentIndex;
       card.classList.remove("active");
 
+      card.style.transition = "all 0.6s cubic-bezier(0.25, 1, 0.5, 1)";
+      card.style.transformStyle = "preserve-3d";
+
       if (diff === 0) {
         card.classList.add("active");
-        card.style.transform = `translateX(-50%) scale(1)`;
+        card.style.transform = `translateX(-50%) perspective(1200px) translateZ(100px) rotateY(0deg) scale(1)`;
         card.style.zIndex = 30;
         card.style.opacity = 1;
-        card.style.filter = "blur(0px)";
+        card.style.filter = "blur(0px) brightness(1)";
+        card.style.boxShadow = "0 25px 50px -12px rgba(0,0,0,0.3)";
       } else if (diff === -1) {
-        card.style.transform = `translateX(calc(-50% - ${xOffset}%)) scale(${scaleFactor})`;
+        card.style.transform = `translateX(calc(-50% - ${xOffset}%)) perspective(1200px) translateZ(-50px) rotateY(${rotateAngle}deg) scale(${scaleFactor})`;
         card.style.zIndex = 20;
-        card.style.opacity = 0.5;
-        card.style.filter = "blur(3px)";
+        card.style.opacity = 0.6;
+        card.style.filter = "blur(2px) brightness(0.6)";
+        card.style.boxShadow = "-15px 10px 30px -10px rgba(0,0,0,0.2)";
       } else if (diff === 1) {
-        card.style.transform = `translateX(calc(-50% + ${xOffset}%)) scale(${scaleFactor})`;
+        card.style.transform = `translateX(calc(-50% + ${xOffset}%)) perspective(1200px) translateZ(-50px) rotateY(${-rotateAngle}deg) scale(${scaleFactor})`;
         card.style.zIndex = 20;
-        card.style.opacity = 0.5;
-        card.style.filter = "blur(3px)";
+        card.style.opacity = 0.6;
+        card.style.filter = "blur(2px) brightness(0.6)";
+        card.style.boxShadow = "15px 10px 30px -10px rgba(0,0,0,0.2)";
       } else {
         const direction = diff < 0 ? -1 : 1;
-        card.style.transform = `translateX(calc(-50% + ${direction * (xOffset * 1.5)}%)) scale(0.6)`;
+        const extraRotate = diff < 0 ? rotateAngle + 15 : -(rotateAngle + 15);
+        card.style.transform = `translateX(calc(-50% + ${direction * (xOffset * 1.5)}%)) perspective(1200px) translateZ(-250px) rotateY(${extraRotate}deg) scale(0.5)`;
         card.style.zIndex = 10;
         card.style.opacity = 0;
+        card.style.filter = "blur(6px) brightness(0.3)";
       }
     });
 

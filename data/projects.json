@@ -39,7 +39,7 @@
     ],
     "tags": ["FastAPI", "PostgreSQL", "SQLAlchemy", "Tailwind CSS"],
     "github": "https://github.com/Vunas/digital-signature-system",
-    "demo": "https://securesign-ujd9.onrender.com",
+    "demo": "https://securesign-k0by.onrender.com",
     "featured": true,
     "features": [
       "Built a full-stack web tool for uploading PDF files, generating embedded digital signatures (PAdES), and validating document authenticity.",
@@ -62,7 +62,7 @@
       "./public/assets/img/pos-4.png",
       "./public/assets/img/pos-5.png"
     ],
-    "tags": ["React.js", "NestJS", "PostgreSQL", "Socket.io"],
+    "tags": ["React.js", "NestJS", "PostgreSQL"],
     "github": "https://github.com/Vunas/CNPM",
     "demo": "https://cnpm-rose.vercel.app/qrcodepage",
     "featured": true,
