@@ -89,9 +89,8 @@ const App = {
       }
     };
     window.addEventListener("scroll", reveal);
-    reveal(); // Khởi chạy lần đầu
+    reveal();
 
-    // Lưu vào global để gọi lại sau khi render JS động
     window.triggerReveal = reveal;
   },
 
@@ -122,8 +121,9 @@ const App = {
   initTypewriter() {
     const phrases = [
       "Software Engineer.",
+      "Backend Developer.",
       "Fullstack Developer.",
-      "CS Student.",
+      "SE Student.",
     ];
     let loopNum = 0;
     let isDeleting = false;

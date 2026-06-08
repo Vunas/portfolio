@@ -67,17 +67,6 @@
     <script src="./js/projects.js"></script>
 
     <script>
-      function pingEnvUrls() {
-        const pingString = "https://warehouse-management-roqy.onrender.com/admin, https://securesign-ujd9.onrender.com, https://cnpm-rose.vercel.app/qrcodepage";
-
-        if (!pingString) return;
-        const urls = pingString.split(/[,\s]+/).filter(Boolean);
-
-        urls.forEach((url) => {
-          fetch(url, { mode: "no-cors" })
-        });
-      }
-
       async function loadHTMLComponent(elementId, filePath) {
         try {
           const response = await fetch(filePath);
@@ -92,8 +81,6 @@
       }
 
       async function bootstrapApp() {
-        pingEnvUrls();
-
         await Promise.all([
           loadHTMLComponent("layout-navbar", "./components/navbar.html"),
           loadHTMLComponent("layout-hero", "./components/hero.html"),
@@ -136,6 +123,18 @@
       }
 
       document.addEventListener("DOMContentLoaded", bootstrapApp);
+      if (window.location.hash) {
+        setTimeout(() => {
+          const target = document.querySelector(window.location.hash);
+
+          if (target) {
+            target.scrollIntoView({
+              behavior: "instant",
+              block: "start",
+            });
+          }
+        }, 300);
+      }
     </script>
   </body>
 </html>

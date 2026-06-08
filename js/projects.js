@@ -260,11 +260,11 @@ class ProjectManager {
         </div>
         <div class="w-full md:w-[40%] p-6 md:p-10 flex flex-col justify-center relative z-20">
           <div class="card-content flex flex-col h-full justify-center">
-            <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-3 leading-tight group-hover:text-primary-600 transition-colors">${project.title}</h3>
-            <p class="text-slate-600 dark:text-slate-400 text-sm mb-8 line-clamp-3 md:line-clamp-none leading-relaxed">${project.description}</p>
+            <h3 class="text-lg md:text-2xl font-bold text-slate-900 dark:text-white mb-3 leading-tight group-hover:text-primary-600 transition-colors">${project.title}</h3>
+            <p class="text-slate-600 dark:text-slate-400 text-sm mb-8 line-clamp-3 md:line-clamp-6 leading-relaxed">${project.description}</p>
             <div class="flex items-center gap-3 mt-auto" onclick="event.stopPropagation()">
-              ${project.demo ? `<a href="${project.demo}" target="_blank" class="px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary-600 dark:hover:bg-primary-500 hover:text-white rounded-lg text-sm font-semibold transition-all flex items-center gap-2">Preview <i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ""}
-              ${project.github ? `<a href="${project.github}" target="_blank" class="px-5 py-2.5 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-brands fa-github"></i> Code</a>` : ""}
+              ${project.demo ? `<a href="${project.demo}" target="_blank" class="flex-1 justify-center px-5 py-2.5 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-primary-600 dark:hover:bg-primary-500 hover:text-white rounded-lg text-sm font-semibold transition-all flex items-center gap-2">Preview <i class="fa-solid fa-arrow-up-right-from-square"></i></a>` : ""}
+              ${project.github ? `<a href="${project.github}" target="_blank" class="flex-1 justify-center px-5 py-2.5 border border-slate-200 dark:border-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-medium transition-all flex items-center gap-2"><i class="fa-brands fa-github"></i> Code</a>` : ""}
             </div>
           </div>
         </div>
@@ -418,8 +418,8 @@ class ProjectManager {
 
           <div class="flex items-center gap-3 shrink-0">
             <div class="hidden sm:flex items-center gap-2 mr-2">
-              ${project.demo ? `<a href="${project.demo}" target="_blank" class="px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 rounded-lg text-sm font-medium transition-all shadow-sm flex items-center gap-2"><i data-lucide="external-link" class="w-4 h-4"></i> Live</a>` : ""}
-              ${project.github ? `<a href="${project.github}" target="_blank" class="px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium transition-all shadow-sm flex items-center gap-2"><i class="fa-brands fa-github"></i> Code</a>` : ""}
+              ${project.demo ? `<a href="${project.demo}" target="_blank" class="flex-1 justify-center px-4 py-2 bg-slate-900 dark:bg-white text-white dark:text-slate-900 hover:bg-slate-800 dark:hover:bg-slate-200 rounded-lg text-sm font-medium transition-all shadow-sm flex items-center gap-2"><i data-lucide="external-link" class="w-4 h-4"></i> Live</a>` : ""}
+              ${project.github ? `<a href="${project.github}" target="_blank" class="flex-1 justify-center px-4 py-2 bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-200 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-medium transition-all shadow-sm flex items-center gap-2"><i class="fa-brands fa-github"></i> Code</a>` : ""}
             </div>
             <div class="hidden sm:block w-px h-6 bg-slate-200 dark:bg-slate-700"></div>
             
@@ -535,7 +535,8 @@ class ProjectManager {
       window.location.protocol +
       "//" +
       window.location.host +
-      window.location.pathname;
+      window.location.pathname +
+      `#projects`;
     window.history.pushState({ path: newUrl }, "", newUrl);
     // --------------------------------------------------
 

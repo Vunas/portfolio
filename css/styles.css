@@ -179,3 +179,14 @@ body.modal-open { overflow: hidden; padding-right: 15px; }
   -webkit-backdrop-filter: blur(12px);
 }
 .dark .glass-header { background: rgba(15, 23, 42, 0.85); }
+#slider-container {
+  isolation: isolate; 
+  z-index: 10;
+}
+
+#slider-prev,
+#slider-next,
+#slider-pagination {
+  z-index: 9999 !important;
+  pointer-events: auto !important; 
+}
