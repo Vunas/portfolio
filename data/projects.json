@@ -62,7 +62,7 @@
       "./public/assets/img/pos-4.png",
       "./public/assets/img/pos-5.png"
     ],
-    "tags": ["React.js", "NestJS", "PostgreSQL"],
+    "tags": ["React.js", "NestJS", "MySQL"],
     "github": "https://github.com/Vunas/CNPM",
     "demo": "https://cnpm-rose.vercel.app/qrcodepage",
     "featured": true,
