@@ -122,7 +122,6 @@ const App = {
     const phrases = [
       "Software Engineer.",
       "Backend Developer.",
-      "Fullstack Developer.",
       "SE Student.",
     ];
     let loopNum = 0;
